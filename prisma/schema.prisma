@@ -1,0 +1,65 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model tenant {
+  id               String             @id @unique @default(uuid())
+  tenantName       String             @db.VarChar(255)
+  isDeleted        Boolean            @default(false)
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime?          @updatedAt
+  slackIntegration slackIntegration[]
+  conversations    conversations[]
+  users            users[]
+}
+
+model slackIntegration {
+  id        String    @id @unique @default(uuid())
+  tenant    tenant    @relation(fields: [tenantId], references: [id])
+  tenantId  String
+  token     String    @db.VarChar(255)
+  isActive  Boolean   @default(true)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+}
+
+model conversations {
+  id          String    @id @unique
+  channelName String    @db.VarChar(255)
+  tenant      tenant    @relation(fields: [tenantId], references: [id])
+  tenantId    String
+  isInstalled Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime? @updatedAt
+}
+
+model users {
+  id           String    @id @unique
+  tenant       tenant    @relation(fields: [tenantId], references: [id])
+  tenantId     String
+  name         String    @db.VarChar(255)
+  emailAddress String?   @db.VarChar(255)
+  isDeleted    Boolean   @default(false)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime? @updatedAt
+  praises      praises[]
+}
+
+model praises {
+  id                String    @id @unique
+  users             users     @relation(fields: [userId], references: [id])
+  userId            String
+  text              String    @db.VarChar(4096)
+  numberOfReactions Int?
+  timeStamp         BigInt?
+  createdAt         DateTime? @default(now())
+  updatedAt         DateTime? @updatedAt
+}
