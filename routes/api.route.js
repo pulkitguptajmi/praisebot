@@ -7,6 +7,7 @@ const Sentiment = require('sentiment');
 const sentiment = new Sentiment();
 const prisma = new PrismaClient();
 const tenantId = '33e3f9d0-877a-11ed-a1eb-0242ac120002';
+const TOKEN = 'xoxb-4130878751557-4566359300102-hTRd6n48jeSMUz9DD9qRcgLg';
 
 router.get('/', async (req, res, next) => {
   res.send({ message: 'We are up and running! 🚀' });
@@ -16,7 +17,7 @@ router.get('/', async (req, res, next) => {
 router.get('/conversations', async (req, res, next) => {
   // WebClient instantiates a client that can call API methods
   // When using Bolt, you can use either `app.client` or the `client` passed to listeners.
-  const client = new WebClient('xoxb-4130878751557-4566359300102-RogviE9ZrsDcJAO9Z7obXXJ5', {
+  const client = new WebClient(TOKEN, {
     // LogLevel can be imported and used to make debugging simpler
     logLevel: LogLevel.DEBUG
   });
@@ -54,7 +55,7 @@ router.get('/conversations', async (req, res, next) => {
 router.get('/users', async (req, res, next) => {
   // WebClient instantiates a client that can call API methods
   // When using Bolt, you can use either `app.client` or the `client` passed to listeners.
-  const client = new WebClient('xoxb-4130878751557-4566359300102-RogviE9ZrsDcJAO9Z7obXXJ5', {
+  const client = new WebClient(TOKEN, {
     // LogLevel can be imported and used to make debugging simpler
     logLevel: LogLevel.DEBUG
   });
@@ -92,7 +93,7 @@ router.get('/users', async (req, res, next) => {
 router.get('/praises', async (req, res, next) => {
   // WebClient instantiates a client that can call API methods
   // When using Bolt, you can use either `app.client` or the `client` passed to listeners.
-  const client = new WebClient('xoxb-4130878751557-4566359300102-RogviE9ZrsDcJAO9Z7obXXJ5', {
+  const client = new WebClient(TOKEN, {
     // LogLevel can be imported and used to make debugging simpler
     logLevel: LogLevel.DEBUG
   });
@@ -167,7 +168,7 @@ router.get('/praises', async (req, res, next) => {
 });
 
 router.get('/sendPraises', async (req, res, next) => {
-  const client = new WebClient('xoxb-4130878751557-4566359300102-RogviE9ZrsDcJAO9Z7obXXJ5', {
+  const client = new WebClient(TOKEN, {
     // LogLevel can be imported and used to make debugging simpler
     logLevel: LogLevel.DEBUG
   });
