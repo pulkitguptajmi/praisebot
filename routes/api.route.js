@@ -7,7 +7,7 @@ const Sentiment = require('sentiment');
 const sentiment = new Sentiment();
 const prisma = new PrismaClient();
 const tenantId = '33e3f9d0-877a-11ed-a1eb-0242ac120002';
-const TOKEN = 'xoxb-4130878751557-4566359300102-hTRd6n48jeSMUz9DD9qRcgLg';
+const TOKEN = 'xoxb-4130878751557-4566359300102-CC3lX1SNZ6gX8Dal6wuVY9pZ';
 
 router.get('/', async (req, res, next) => {
   res.send({ message: 'We are up and running! 🚀' });
